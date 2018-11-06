@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.lviv.ukeess.entity.Department;
 import ua.lviv.ukeess.entity.Employee;
-import ua.lviv.ukeess.exeptions.EmployeeNotFoundExeption;
+import ua.lviv.ukeess.exeptions.EmployeeNotFoundException;
 import ua.lviv.ukeess.repository.DepartmentRepository;
 import ua.lviv.ukeess.repository.EmployeeRepository;
 import ua.lviv.ukeess.service.dto.EmployeeDto;
@@ -41,8 +41,8 @@ public class EmployeeService {
     }
 
     @Transactional
-    public EmployeeDto getEmployeeDtoById(Long employee_id) throws EmployeeNotFoundExeption {
-        return EmployeeMapper.instance.toDto(employeeRepository.findById(employee_id).orElseThrow(() -> new EmployeeNotFoundExeption(employee_id)));
+    public EmployeeDto getEmployeeDtoById(Long employee_id) throws EmployeeNotFoundException {
+        return EmployeeMapper.instance.toDto(employeeRepository.findById(employee_id).orElseThrow(() -> new EmployeeNotFoundException(employee_id)));
     }
 
     @Transactional
@@ -56,8 +56,8 @@ public class EmployeeService {
     }
 
     @Transactional
-    public void updateEmployee(EmployeeDto employeeDto) throws EmployeeNotFoundExeption {
-        Employee employee = employeeRepository.findById(employeeDto.getId()).orElseThrow(() -> new EmployeeNotFoundExeption(employeeDto.getId()));
+    public void updateEmployee(EmployeeDto employeeDto) throws EmployeeNotFoundException {
+        Employee employee = employeeRepository.findById(employeeDto.getId()).orElseThrow(() -> new EmployeeNotFoundException(employeeDto.getId()));
         Department department = departmentRepository.findFirstByName(employeeDto.getDepartmentName());
         employee.setName(employeeDto.getName());
         employee.setActive(employeeDto.getActive());

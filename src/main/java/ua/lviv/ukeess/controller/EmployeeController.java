@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.lviv.ukeess.exeptions.EmployeeNotFoundExeption;
+import ua.lviv.ukeess.exeptions.EmployeeNotFoundException;
 import ua.lviv.ukeess.service.EmployeeService;
 import ua.lviv.ukeess.service.dto.EmployeeDto;
 import javax.validation.Valid;
@@ -35,13 +35,13 @@ public class EmployeeController {
     }
 
     @PutMapping("/employee")
-    public ResponseEntity<EmployeeDto> editEmployee(@Valid @RequestBody EmployeeDto employeeDto) throws EmployeeNotFoundExeption {
+    public ResponseEntity<EmployeeDto> editEmployee(@Valid @RequestBody EmployeeDto employeeDto) throws EmployeeNotFoundException {
         employeeService.updateEmployee(employeeDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/employee/{id}")
-    public EmployeeDto findEmployeeById(@PathVariable("id") Long id) throws EmployeeNotFoundExeption {
+    public EmployeeDto findEmployeeById(@PathVariable("id") Long id) throws EmployeeNotFoundException {
         return employeeService.getEmployeeDtoById(id);
     }
 

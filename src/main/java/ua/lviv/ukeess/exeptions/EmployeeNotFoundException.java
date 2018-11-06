@@ -4,9 +4,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class EmployeeNotFoundExeption extends Exception {
+public class EmployeeNotFoundException extends Exception {
 
-    public EmployeeNotFoundExeption(Long employee_id) {
+    private static final long serialVersionUID = 1L;
+
+    public EmployeeNotFoundException(Long employee_id) {
         super("Employee with id = " + employee_id + " is not found");
     }
 }
